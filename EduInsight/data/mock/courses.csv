@@ -1,0 +1,35 @@
+course_id,course_code,course_name,dept_id,credits,course_type
+1,CS101,Programming Fundamentals,1,4,Theory
+2,CS102,Digital Logic Design,1,3,Theory
+3,CS201,Data Structures & Algorithms,1,4,Theory
+4,CS202,Computer Organisation,1,3,Theory
+5,CS301,Database Management Systems,1,4,Theory
+6,CS302,Operating Systems,1,4,Theory
+7,CS401,Software Engineering,1,3,Theory
+8,CS402,Machine Learning,1,4,Theory
+9,CS103L,Programming Lab,1,2,Lab
+10,CS201L,DSA Lab,1,2,Lab
+11,EC101,Basic Electronics,2,3,Theory
+12,EC201,Signals & Systems,2,4,Theory
+13,EC301,VLSI Design,2,4,Theory
+14,EC401,Digital Communication,2,4,Theory
+15,EC101L,Electronics Lab,2,2,Lab
+16,ME101,Engineering Mechanics,3,4,Theory
+17,ME201,Thermodynamics,3,4,Theory
+18,ME301,Fluid Mechanics,3,4,Theory
+19,ME401,Manufacturing Technology,3,3,Theory
+20,ME101L,Workshop Lab,3,2,Lab
+21,CV101,Engineering Drawing,4,3,Theory
+22,CV201,Structural Analysis,4,4,Theory
+23,CV301,Geo-technical Engineering,4,3,Theory
+24,CV401,Transportation Engineering,4,3,Theory
+25,CV101L,Surveying Lab,4,2,Lab
+26,IT101,Computer Networks,5,4,Theory
+27,IT201,Web Technologies,5,3,Theory
+28,IT301,Cloud Computing,5,3,Theory
+29,IT401,Cyber Security,5,4,Theory
+30,IT101L,Networking Lab,5,2,Lab
+31,MA101,Engineering Mathematics I,1,4,Theory
+32,MA201,Engineering Mathematics II,1,4,Theory
+33,PH101,Engineering Physics,1,3,Theory
+34,EN101,Communication Skills,1,2,Theory

@@ -1,0 +1,6 @@
+fastapi==0.135.2
+uvicorn==0.42.0
+pandas==3.0.1
+starlette==1.0.0
+python-multipart==0.0.20
+aiofiles==24.1.0

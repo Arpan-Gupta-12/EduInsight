@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EduInsight – Academic Performance Engine</title>
+  <meta name="description" content="EduInsight: Institutional Academic Performance & Strategy Engine – analytics, trends, and AI recommendations for universities." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Source+Serif+4:wght@300;400;500;600&family=Inter:wght@400;500;600;700&display=swap" />
+  <link rel="stylesheet" href="style.css?v=5" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+</head>
+<body>
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <img src="/uni_logo.png" alt="Graphic Era Hill University" class="uni-logo-img" />
+    <div>
+      <div class="logo-title">EduInsight</div>
+      <div class="logo-sub">Academic Analytics</div>
+    </div>
+  </div>
+
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">Overview</div>
+    <a class="nav-item active" data-tab="overview" onclick="switchTab('overview')"><span class="nav-icon">📊</span>Dashboard</a>
+    <a class="nav-item" data-tab="departments" onclick="switchTab('departments')"><span class="nav-icon">🏛️</span>Departments</a>
+
+    <div class="nav-section-label">Analysis</div>
+    <a class="nav-item" data-tab="trends" onclick="switchTab('trends')"><span class="nav-icon">📈</span>Trends &amp; YoY</a>
+    <a class="nav-item" data-tab="subjects" onclick="switchTab('subjects')"><span class="nav-icon">📚</span>Subjects</a>
+    <a class="nav-item" data-tab="attendance" onclick="switchTab('attendance')"><span class="nav-icon">🗓️</span>Attendance</a>
+
+    <div class="nav-section-label">Action</div>
+    <a class="nav-item" data-tab="atrisk" onclick="switchTab('atrisk')"><span class="nav-icon">⚠️</span>At-Risk Students</a>
+    <a class="nav-item" data-tab="monitor" onclick="switchTab('monitor')"><span class="nav-icon">👁️</span>Student Monitor</a>
+    <a class="nav-item" data-tab="recommendations" onclick="switchTab('recommendations')"><span class="nav-icon">💡</span>Recommendations</a>
+  </nav>
+
+  <div class="sidebar-role">
+    <div class="role-label">View As</div>
+    <div class="role-tabs">
+      <button class="role-btn active" data-role="admin" onclick="switchRole('admin')">Admin</button>
+      <button class="role-btn" data-role="faculty" onclick="switchRole('faculty')">Faculty</button>
+      <button class="role-btn" data-role="management" onclick="switchRole('management')">Mgmt</button>
+    </div>
+  </div>
+</aside>
+<main class="main" id="main-content">
+  <header class="topbar">
+    <div class="topbar-left">
+      <button class="hamburger" onclick="toggleSidebar()" aria-label="Toggle sidebar">☰</button>
+      <div>
+        <h1 class="page-title" id="page-title">Dashboard Overview</h1>
+        <p class="page-sub" id="page-sub">Graphic Era Centralized Academic Performance Engine</p>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="status-pill" id="status-pill">
+        <span class="pulse"></span>
+        <span id="status-text">Loading …</span>
+      </div>
+      <div class="user-avatar">AD</div>
+    </div>
+  </header>
+  <div class="page-hero" id="page-hero">
+    <div class="page-hero-content">
+      <h2 id="hero-title">Institutional Analytics</h2>
+      <p id="hero-sub">Academic Year · Live Data · 10-Point GPA System</p>
+    </div>
+  </div>
+  <div class="loading-overlay" id="loading-overlay">
+    <div class="spinner"></div>
+    <p>Fetching data from EduInsight engine …</p>
+  </div>
+  <section class="tab-content active" id="tab-overview">
+    <div class="section-divider"><h3>Key Performance Indicators</h3></div>
+    <div class="kpi-grid" id="kpi-grid"></div>
+    <div class="section-divider"><h3>Grade &amp; Risk Distribution</h3></div>
+    <div class="charts-row">
+      <div class="chart-card wide">
+        <div class="chart-header">
+          <h3>Grade Distribution</h3>
+          <span class="badge">All Semesters</span>
+        </div>
+        <canvas id="gradeDistChart" height="240"></canvas>
+      </div>
+      <div class="chart-card">
+        <div class="chart-header">
+          <h3>Risk Breakdown</h3>
+          <span class="badge">Students</span>
+        </div>
+        <canvas id="riskDonutChart" height="240"></canvas>
+      </div>
+    </div>
+    <div class="insight-box" id="overview-insight">
+      <div class="insight-header"><span>🧠</span> AI-Powered Analysis &amp; Suggestions</div>
+      <div class="insight-body" id="overview-insight-body">Loading analysis …</div>
+    </div>
+  </section>
+  <section class="tab-content" id="tab-departments">
+    <div class="section-divider"><h3>Department Performance</h3></div>
+    <div class="charts-row">
+      <div class="chart-card wide">
+        <div class="chart-header"><h3>CGPA by Department</h3><span class="badge">Avg CGPA / 10</span></div>
+        <canvas id="deptCgpaChart" height="260"></canvas>
+      </div>
+      <div class="chart-card">
+        <div class="chart-header"><h3>Pass vs Fail</h3></div>
+        <canvas id="deptPassFailChart" height="260"></canvas>
+      </div>
+    </div>
+    <div class="dept-cards-grid" id="dept-cards-grid"></div>
+  </section>
+  <section class="tab-content" id="tab-trends">
+    <div class="section-divider"><h3>Year-on-Year Academic Trends</h3></div>
+    <div class="chart-card full">
+      <div class="chart-header"><h3>SGPA Trend — Semester-wise by Department</h3><span class="badge">YoY Analysis</span></div>
+      <canvas id="trendLineChart" height="300"></canvas>
+    </div>
+    <div class="chart-card full" style="margin-top:18px">
+      <div class="chart-header"><h3>Attendance Trend — Semester-wise</h3></div>
+      <canvas id="attTrendChart" height="260"></canvas>
+    </div>
+    <div class="insight-box" id="trend-insight">
+      <div class="insight-header"><span>🧠</span> Trend Analysis &amp; Recommendations</div>
+      <div class="insight-body" id="trend-insight-body">Loading …</div>
+    </div>
+  </section>
+
+  <section class="tab-content" id="tab-subjects">
+    <div class="section-divider"><h3>Subject-wise Performance</h3></div>
+    <div class="charts-row">
+      <div class="chart-card wide">
+        <div class="chart-header"><h3>Subject Average Grade Points</h3><span class="badge">All Subjects</span></div>
+        <canvas id="subjectBarChart" height="300"></canvas>
+      </div>
+      <div class="chart-card">
+        <div class="chart-header"><h3>Top vs Bottom Subjects</h3></div>
+        <canvas id="subjectRadarChart" height="300"></canvas>
+      </div>
+    </div>
+    <div class="subject-highlights" id="subject-highlights"></div>
+  </section>
+
+  
+  <section class="tab-content" id="tab-attendance">
+    <div class="section-divider"><h3>Attendance Impact Analysis</h3></div>
+    <div class="charts-row">
+      <div class="chart-card wide">
+        <div class="chart-header"><h3>Attendance Band vs Avg Grade Point</h3><span class="badge">Impact Analysis</span></div>
+        <canvas id="attImpactChart" height="280"></canvas>
+      </div>
+      <div class="chart-card">
+        <div class="chart-header"><h3>Student Distribution by Attendance</h3></div>
+        <canvas id="attDistChart" height="280"></canvas>
+      </div>
+    </div>
+    <div class="insight-box" id="att-insight">
+      <div class="insight-header"><span>🧠</span> Attendance Impact Analysis</div>
+      <div class="insight-body" id="att-insight-body">Loading …</div>
+    </div>
+  </section>
+
+  <section class="tab-content" id="tab-atrisk">
+    <div class="section-divider"><h3>Student Risk Overview</h3></div>
+    <div class="risk-summary-bar" id="risk-summary-bar"></div>
+    <div class="filter-bar">
+      <input class="search-input" id="risk-search" type="text" placeholder="🔍 Search by name or roll no …" oninput="filterRiskTable()" />
+      <select class="filter-select" id="risk-level-filter" onchange="filterRiskTable()">
+        <option value="">All Risk Levels</option>
+        <option value="critical">🔴 Critical</option>
+        <option value="at_risk">🟡 At Risk</option>
+      </select>
+      <select class="filter-select" id="dept-filter" onchange="filterRiskTable()">
+        <option value="">All Departments</option>
+      </select>
+    </div>
+    <div class="table-wrapper">
+      <table class="data-table" id="risk-table">
+        <thead>
+          <tr>
+            <th>Roll No</th>
+            <th>Name</th>
+            <th>Department</th>
+            <th>CGPA</th>
+            <th>Attendance %</th>
+            <th>SGPA Trend</th>
+            <th>Risk Level</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="risk-tbody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="tab-content" id="tab-recommendations">
+    <div class="section-divider"><h3>Actionable Recommendations</h3></div>
+    <div class="rec-header-row">
+      <p>Faculty interventions and management strategies based on data analysis</p>
+    </div>
+    <div class="rec-grid" id="rec-grid"></div>
+  </section>
+  <section class="tab-content" id="tab-monitor">
+    <div class="section-divider"><h3>Student Monitor — Full Directory</h3></div>
+    <div class="monitor-controls">
+      <input class="search-input" id="monitor-search" type="text" placeholder="🔍 Search by name or roll number …" oninput="filterMonitorTable()" />
+      <select class="filter-select" id="monitor-dept-filter" onchange="filterMonitorTable()">
+        <option value="">All Departments</option>
+      </select>
+      <select class="filter-select" id="monitor-risk-filter" onchange="filterMonitorTable()">
+        <option value="">All Students</option>
+        <option value="critical">🔴 Critical Only</option>
+        <option value="at_risk">🟡 At-Risk Only</option>
+        <option value="good">🟢 Good Standing</option>
+      </select>
+      <select class="filter-select" id="monitor-sort" onchange="filterMonitorTable()">
+        <option value="cgpa_asc">CGPA ↑ Lowest First</option>
+        <option value="cgpa_desc">CGPA ↓ Highest First</option>
+        <option value="att_asc">Attendance ↑</option>
+        <option value="att_desc">Attendance ↓</option>
+        <option value="name">Name A–Z</option>
+      </select>
+    </div>
+    <div class="monitor-stats" id="monitor-stats"></div>
+    <div class="table-wrapper">
+      <table class="data-table" id="monitor-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Roll No</th>
+            <th>Name</th>
+            <th>Department</th>
+            <th>CGPA</th>
+            <th>Attendance %</th>
+            <th>SGPA Trend</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="monitor-tbody"></tbody>
+      </table>
+    </div>
+  </section>
+
+</main>
+
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal()">
+  <div class="modal" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+<script src="app.js?v=4"></script>
+</body>
+</html>
